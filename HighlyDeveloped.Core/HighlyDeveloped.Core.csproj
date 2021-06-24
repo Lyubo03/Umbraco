@@ -276,6 +276,7 @@
     <Compile Include="ViewModels\ContactFormViewModel.cs" />
     <Compile Include="ViewModels\ForgottenPasswordViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\NewsArticleViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\SearchContentModel.cs" />
