@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<map>
+  <item key="L3VtYnJhY28vYXNzZXRzL2Nzcy9jYW52YXNkZXNpZ25lci5jc3M7" file="D:\courses\Umbraco\Umbraco\HighlyDeveloped\App_Data\TEMP\ClientDependency\1_9060148c59ac446cbbd223cd30299aaf.cdC" compression="gzip" version="1">
+    <files>
+      <file name="/umbraco/assets/css/canvasdesigner.css" />
+    </files>
+  </item>
+  <item key="L3VtYnJhY28vanMvdW1icmFjby5wcmV2aWV3LmpzOw" file="D:\courses\Umbraco\Umbraco\HighlyDeveloped\App_Data\TEMP\ClientDependency\1_0125080e1830470ebae6376941cde478.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/umbraco/js/umbraco.preview.js" />
+    </files>
+  </item>
+  <item key="L3VtYnJhY28vbGliL2pxdWVyeS9qcXVlcnkubWluLmpzOy91bWJyYWNvL2xpYi9hbmd1bGFyL2FuZ3VsYXIuanM7L3VtYnJhY28vbGliL3VuZGVyc2NvcmUvdW5kZXJzY29yZS1taW4uanM7L3VtYnJhY28vbGliL3VtYnJhY28vRXh0ZW5zaW9ucy5qczsvdW1icmFjby9qcy91dGlsaXRpZXMuanM7L3VtYnJhY28vanMvYXBwLmpzOy91bWJyYWNvL2pzL3VtYnJhY28ucmVzb3VyY2VzLmpzOy91bWJyYWNvL2pzL3VtYnJhY28uc2VydmljZXMuanM7L3VtYnJhY28vanMvdW1icmFjby5pbnRlcmNlcHRvcnMuanM7" file="D:\courses\Umbraco\Umbraco\HighlyDeveloped\App_Data\TEMP\ClientDependency\1_76d04bc96c914784912e449bc66e5c92.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/umbraco/lib/jquery/jquery.min.js" />
+      <file name="/umbraco/lib/angular/angular.js" />
+      <file name="/umbraco/lib/underscore/underscore-min.js" />
+      <file name="/umbraco/lib/umbraco/Extensions.js" />
+      <file name="/umbraco/js/utilities.js" />
+      <file name="/umbraco/js/app.js" />
+      <file name="/umbraco/js/umbraco.resources.js" />
+      <file name="/umbraco/js/umbraco.services.js" />
+      <file name="/umbraco/js/umbraco.interceptors.js" />
+    </files>
+  </item>
+  <item key="L3VtYnJhY28vbGliL3NpZ25hbHIvanF1ZXJ5LnNpZ25hbFIuanM7" file="D:\courses\Umbraco\Umbraco\HighlyDeveloped\App_Data\TEMP\ClientDependency\1_b2a33a4832bc49a6bb7db38f68cdf357.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/umbraco/lib/signalr/jquery.signalR.js" />
+    </files>
+  </item>
+  <item key="L2Nzcy9Db29raWVDb25zZW50LmNzczsvY3NzL1NpdGUuY3NzOw" file="D:\courses\Umbraco\Umbraco\HighlyDeveloped\App_Data\TEMP\ClientDependency\1_117fcbee58744e8c8c10faee06550760.cdC" compression="gzip" version="1">
+    <files>
+      <file name="/css/CookieConsent.css" />
+      <file name="/css/Site.css" />
+    </files>
+  </item>
+</map>

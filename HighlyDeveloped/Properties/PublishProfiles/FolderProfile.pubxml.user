@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Umbraco\Published</_PublishTargetUrl>
+    <History>False|2021-06-03T11:53:49.2734060Z;False|2021-06-03T14:52:05.0290337+03:00;False|2021-06-03T14:51:06.8106018+03:00;False|2021-06-03T14:46:59.8715858+03:00;False|2021-06-03T14:44:57.5926149+03:00;False|2021-06-03T14:44:34.0731980+03:00;</History>
+  </PropertyGroup>
+</Project>
