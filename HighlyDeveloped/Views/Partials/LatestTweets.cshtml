@@ -1,0 +1,56 @@
+﻿@model HighlyDeveloped.Core.ViewModels.TwitterViewModel
+@using System.Globalization
+@using System
+@{ 
+    dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(Model.Json);
+}
+<h2 class="text-center py-3 mx-auto">Latest Tweets for @Model.TwitterHandle</h2>
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card-deck">
+               @* 
+                  Get The tweets
+                  Iterate over each tweet
+               *@
+               @foreach (var item in json)
+                {
+                   var createdDate = DateTime.ParseExact(item.created_at.ToString(), "ddd MMM dd HH:mm:ss +ffff yyyy", CultureInfo.InvariantCulture);
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div>
+                            <strong>Highly Developed</strong><br/>
+                            <p>@@@Model.TwitterHandle</p>
+                        </div>
+                        <div>
+                            <a href="https://twitter.com/@Model.TwitterHandle/status/@item.id_str"><i class="fab fa-twitter fa-2x"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @item.full_text
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+
+                        </div>
+                        <div>
+                            @if (DateTime.UtcNow.Year == createdDate.Year)
+                            {
+                                <text>
+                                    @Html.Raw(createdDate.ToString("dd MM"))<br />
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                    @Html.Raw(createdDate.ToString("dd/MM/yyyy"))<br />
+                                </text>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

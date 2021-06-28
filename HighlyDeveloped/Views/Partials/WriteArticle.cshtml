@@ -1,0 +1,62 @@
+﻿@inherits UmbracoViewPage<HighlyDeveloped.Core.ViewModels.WriteArticleViewModel>
+@using HighlyDeveloped.Core.ViewModels
+@using HighlyDeveloped.Core.Controllers
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@using (Html.BeginUmbracoForm<WriteArticleController>("HandleWriteArticle", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-lg", @type = "text", placeholder = "Title" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.Title)</span>
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.Auhtor)
+            @Html.TextBoxFor(m => m.Auhtor, new { @class = "form-control form-control-lg", @type = "text", placeholder = "Auhtor Name" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.Auhtor)</span>
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.PostDate)
+            @Html.TextBoxFor(m => m.PostDate, new { @class = "form-control form-control-lg", @type = "date" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.PostDate)</span>
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.LeadIn)
+            @Html.TextBoxFor(m => m.LeadIn, new { @class = "form-control form-control-lg", @type = "text", placeholder = "Lead In" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.LeadIn)</span>
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.ArticleImage)
+            @Html.TextBoxFor(m => m.ArticleImage, new { @class = "form-control form-control-lg", @type = "file" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.ArticleImage)</span>
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.ArticleContent)
+            @Html.TextAreaFor(m => m.ArticleContent, new { @class = "form-control form-control-lg", id = "articleContent", @type = "text", placeholder = "Article Content" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.ArticleContent)</span>
+        </div>
+        <div class="form-group col-12">
+            @Html.LabelFor(m => m.Tags)
+            @Html.TextBoxFor(m => m.Tags, new { @class = "form-control form-control-lg", @type = "text", placeholder = "Please write tags in format: #News #Journal #Smile" })
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.Tags)</span>
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    tinymce.init({ selector: '#articleContent'@*, mode: 'exact'*@, inline: true});
+</script>

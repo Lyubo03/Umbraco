@@ -1,0 +1,145 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.NewsArticles>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Core.PropertyEditors.ValueConverters;
+@using HighlyDeveloped.Core.Controllers
+ 
+@{
+    Layout = "main.cshtml";
+}
+
+@section head{
+    <style>
+        .card-horizontal {
+            display: flex;
+            flex: 1 1 auto;
+        }
+
+        .active a {
+            color: white;
+        }
+    </style>
+}
+
+@{
+    var heroOverlayColor = Model.Value<string>("heroOverlayColor");
+    var articles = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("newsArticles").FirstOrDefault();
+    var news = articles.Children;
+
+    if (!string.IsNullOrEmpty(Request.QueryString["cat"]))
+    {
+        news = news
+            .Where(x => x.Value<string[]>("newsCategories")
+            .Contains(Request.QueryString["cat"]));
+    }
+
+    var tags = articles.Children.Select(t => t.Value<string[]>("newsCategories"));
+    var categoryList = new List<string>();
+
+    foreach (var tagArray in tags)
+    {
+        foreach (var tag in tagArray)
+        {
+            if (!categoryList.Contains(tag))
+            {
+                categoryList.Add(tag);
+            }
+        }
+    }
+    <!-- page size-->
+    var pageSize = 2;
+
+    var numberOfPages = (int)Math.Ceiling((double)news.Count() / (double)pageSize);
+
+    <!-- Currently selected page -->
+    var selectedPage = 1;
+    if (!string.IsNullOrEmpty(Request.QueryString["page"]))
+    {
+        int.TryParse(Request.QueryString["page"], out selectedPage);
+
+        if (selectedPage <= 0 || selectedPage > numberOfPages)
+        {
+            selectedPage = 1;
+        }
+    }
+
+    news = news.Skip((selectedPage - 1) * pageSize).Take(pageSize);
+}
+
+@Html.Partial("Hero")
+
+@if (!string.IsNullOrEmpty("heroOverlayColor"))
+{
+    <style>
+    .home-hero > .overlay {
+        background-color: #@heroOverlayColor;
+        opacity:0.5;
+    }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 bg-light p-0">
+            <!-- Render the news-->
+            <div class="container">
+                <div class="row">
+                    <div class="col p-0">
+                        @foreach (var article in news.OrderByDescending(a => a.Value<DateTime>("postDate")))
+                        {
+                            var articleImage = article.Value<IPublishedContent>("articleImage");
+                            <!-- var imageUrl = imgCropper.Src + imgCropper.GetCropUrl("thumbnail"); -->
+
+                            <div class="card mt-25 mb-25">
+                                <a class="card-block stretched-link text-decoration-none" href="@article.Url">
+                                    <div class="card-horizontal">
+                                        <div class="img-square-wrapper">
+                                            <img src="@articleImage.Url" style="width:300; height:auto" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title pb-25">@article.Name</h4>
+                                            <p class="card-text">@article.Value("leadIn")</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 bg-dark text-white text-center">
+            <h3>Categories</h3>
+            <ul>
+                <!-- Render the filters in the side bar-->
+                @foreach (var category in categoryList)
+                {
+                    var activeClass = "";
+                    if (category == Request.QueryString["cat"])
+                    {
+                        activeClass = "active";
+                    }
+                    <li class="@activeClass"><a href="@Model.Url?cat=@category">@category</a></li>
+                }
+            </ul>
+            <a href="@Model.Url" class="btn btn-primary">Reset Filters</a>
+        </div>
+
+        <!-- Paging -->
+        @if (numberOfPages > 1)
+        {
+            <div class="row">
+                <div class="col">
+
+                    <ul class="Pagination">
+                        <li class="page-item @(selectedPage <= 1 ? "disabled" : "")"><a href="@Model.Url?page=@(selectedPage - 1)" class="page-link">Previous</a></li>
+                        @for (int i = 1; i <= numberOfPages; i++)
+                        {
+                            <li class="page-item @(selectedPage == i ? "active" : "")"><a href="@Model.Url?page=@i" class="page-link">@i</a></li>
+                        }
+                        <li class="page-item @(selectedPage >= numberOfPages ? "disabled" : "")"><a href="@Model.Url?page=@(selectedPage + 1)" class="page-link">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

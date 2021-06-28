@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.WriteArticle>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "Main.cshtml";
+    var heroOverlayColor = Model.Value<string>("heroOverlayColor");
+}
+
+@if(!string.IsNullOrEmpty("heroOverlayColor")){
+<style>
+    .home-hero > .overlay {
+        background-color: #@heroOverlayColor;
+        opacity:0.5;
+    }
+</style>
+}
+@Html.Partial("Hero")
+@Html.Action("RenderWriteArticle", "WriteArticle")

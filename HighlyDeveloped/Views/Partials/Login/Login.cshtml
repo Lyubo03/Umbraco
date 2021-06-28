@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<HighlyDeveloped.Core.ViewModels.LoginViewModel>
+@using HighlyDeveloped.Core.Controllers;
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+
+    var myUser = System.Web.Security.Membership.GetUser();
+}
+@Html.AntiForgeryToken()
+@if (Umbraco.MemberIsLoggedOn())
+{
+    if (myUser != null)
+    {
+        <div class="container">
+            <div class="col">
+                <div class="row">
+                    <h1>You logged in successfully  @myUser.UserName</h1>
+                    <h4>Now you have access to everything in our website.</h4>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Log in</h1>
+                @using (Html.BeginUmbracoForm<LoginController>("HandleLogin"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="text-danger">@Html.ValidationSummary()</div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Username)
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Username" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Password)
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+                    </div>
+                    @Html.HiddenFor(m => m.RedirectUrl)
+                    <button class="btn btn-primary " name="login" type="submit">Login</button>
+                    <div>
+                       You forgot your password <a href="/forgotten-password/">Forgotten Password</a>
+                    </div>
+                    <div>
+                        If you are new <a href="/register">Register</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

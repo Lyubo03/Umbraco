@@ -17,7 +17,7 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.ModelsBuilder.Embedded;
 
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "2049bbf5dab2db86")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "21b4fa7539362dcc")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedModels
@@ -88,6 +88,13 @@ namespace Umbraco.Web.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "8.13.0")]
 		[ImplementPropertyType("recaptchaSiteKey")]
 		public virtual string RecaptchaSiteKey => this.Value<string>("recaptchaSiteKey");
+
+		///<summary>
+		/// Tiny API Key
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "8.13.0")]
+		[ImplementPropertyType("tinyAPIKey")]
+		public virtual string TinyApikey => this.Value<string>("tinyAPIKey");
 
 		///<summary>
 		/// Twitter Access Token: This is the access token for the Twitter API

@@ -1,0 +1,146 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.NewsArticle>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Core.PropertyEditors.ValueConverters;
+@using HighlyDeveloped.Core.Controllers
+
+@{
+    Layout = "main.cshtml";
+
+    var articleImage = Model.Value<IPublishedContent>("articleImage");
+    @*var imageUrl = articleImage.Url;*@
+    var articleUrl = Model.Url(null, UrlMode.Absolute);
+    var siteUrl = Request.Url.GetLeftPart(UriPartial.Authority);
+
+    var relatedArticles = Model.Value<IList<IPublishedContent>>("articleRelatedContent");
+}
+
+@section head
+{
+    <meta property="og:title" content="@Model.Name" />
+    <meta property="og:description" content="@Model.LeadIn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="@siteUrl@Model.ArticleImage" />
+}
+<article class="container">
+    <header class="text-center">
+        <div class="row">
+            <div class="col">
+                <h1 class="title-2 mt-4">@Model.Name</h1>
+                <div class="meta">
+                    <ul class="list-inline list-unstyled">
+                        <li class="list-inline-item">
+                            <i class="fa fa-user"></i>
+                            by @Model.Author
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fa fa-calendar"></i>
+                            @Model.PostDate.ToString("dd-MMM-yyyy HH:mm")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="lead-in">@Model.LeadIn</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="@articleImage.Url" class="w-100">
+            </div>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col">
+            @Model.ArticleContent
+        </div>
+    </div>
+    <footer class="border d-flex flex-column flex-md-row justify-content-between my-5">
+        <div class="d-flex align-item-center px-4">
+            <div class="d-flex flex-column">
+                <div class="d-flex"><span>Author: <strong>@Model.Author</strong></span></div>
+                <div class="d-flex">
+                    <span>
+                        Categories:
+                        @foreach (var tag in Model.NewsCategories)
+                        {
+                            <strong>#@tag</strong>
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-item-center px-4">
+            <div class="btn--socialsquare btn btn-outline-primary m-2">
+                <a class="ml-3 mr-2" href="https://www.twitter.com/intent/tweet?text=@Model.Name&amp;url=@articleUrl">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="btn--socialsquare btn btn-outline-primary m-2">
+                <a class="ml-3 mr-2" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=@articleUrl">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <div class="btn--socialsquare btn btn-outline-primary m-2">
+                <a class="ml-3 mr-2" href="https://www.facebook.com/sharer/sharer.php?u=@articleUrl">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    @if (User.IsInRole("Admin User"))
+    {
+        <div>
+            @using (Html.BeginUmbracoForm("DeleteArticle", "EditArticle", FormMethod.Post))
+            {
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            }
+        </div>
+    }
+</article>
+
+@if (relatedArticles != null && relatedArticles.Count > 0)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Related News</h2>
+                <div class="card-deck">
+                    @foreach (var article in relatedArticles)
+                    {
+                        var articleThumbnail = article.Value<IPublishedContent>("articleImage");
+
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="@articleThumbnail.Url" style="width: 348; height: 250;" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@article.Name</h5>
+                                <p class="card-text">@article.Value("leadIn")</p>
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-between">
+                                <a href="@article.Url">Read more</a>
+                                <div class="social-icons text-muted">
+                                    <a class="ml-2 mr-2" href="https://twitter.com/intent/tweet?text=@article.Value("leadIn")&amp;url=@article.Url(null, UrlMode.Absolute)">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a class="ml-2 mr-2" href="https://www.facebook.com/sharer.php?u=@article.Url(null, UrlMode.Absolute)">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a class="ml-2 mr-2" href=" https://www.linkedin.com/shareArticle?mini=true&amp;url=@article.Url(null, UrlMode.Absolute)">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="~/Umbraco/"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
